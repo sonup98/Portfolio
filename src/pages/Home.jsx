@@ -8,6 +8,7 @@ import Bird from '../models/Bird'
 import HomeInfo from '../components/HomeInfo'
 import { soundoff, soundon } from "../assets/icons";
 import sakura from "../assets/sakura.mp3";
+import PolyIsland from '../models/PolyIsland'
 
 const Home = () => {
   const audioRef = useRef(new Audio(sakura));
@@ -51,7 +52,7 @@ const Home = () => {
       screenPosition = [0, -6.5, -43.4];
     } else {
       screenScale = [1, 1, 1];
-      screenPosition = [0, -6.5, -43.4];
+      screenPosition = [0, -6.5, -14];
     }
 
     return [screenScale, screenPosition];
@@ -89,8 +90,9 @@ const Home = () => {
           />
 
           <Bird />
+          
           <Sky isRotating={isRotating} />
-          <Island
+          <PolyIsland
             isRotating={isRotating}
             setIsRotating={setIsRotating}
             setCurrentStage={setCurrentStage}
