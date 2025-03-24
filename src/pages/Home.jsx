@@ -1,7 +1,6 @@
 import React, { Suspense,useState,useEffect, useRef, } from 'react'
 import { Canvas} from '@react-three/fiber'
 import  Loader  from '../components/Loader'
-import Island from '../models/Island'
 import  Sky  from '../models/Sky'
 import  Plane from '../models/Plane'
 import Bird from '../models/Bird'
@@ -49,7 +48,7 @@ const Home = () => {
 
     if (window.innerWidth < 768) {
       screenScale = [0.9, 0.9, 0.9];
-      screenPosition = [0, -6.5, -43.4];
+      screenPosition = [0, -6.5, -14];
     } else {
       screenScale = [1, 1, 1];
       screenPosition = [0, -6.5, -14];

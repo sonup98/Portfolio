@@ -38,22 +38,20 @@ const PolyIsland =({isRotating,setIsRotating,setCurrentStage,...props})=> {
       const handlePointerMove = (event) => {
         event.stopPropagation();
         event.preventDefault();
+        
         if (isRotating) {
-          // If rotation is enabled, calculate the change in clientX position
           const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-    
-          // calculate the change in the horizontal position of the mouse cursor or touch input,
-          // relative to the viewport's width
           const delta = (clientX - lastX.current) / viewport.width;
-    
-          // Update the island's rotation based on the mouse/touch movement
-          islandRef.current.rotation.y += delta * 0.01 * Math.PI;
-    
-          // Update the reference for the last clientX position
+      
+          // Apply a much stronger rotation multiplier for mobile devices
+          const isMobile = window.innerWidth < 768;
+          const speedMultiplier = isMobile ? 2 : 1; // 🔥 Stronger boost for touch devices
+          
+          islandRef.current.rotation.y += delta * 0.05 * Math.PI * speedMultiplier;
           lastX.current = clientX;
-    
-          // Update the rotation speed
-          rotationSpeed.current = delta * 0.01 * Math.PI;
+      
+          // Update rotation speed
+          rotationSpeed.current = delta * 0.01 * Math.PI * speedMultiplier;
         }
       };
       const handleKeyDown = (event) => {
@@ -110,7 +108,8 @@ const PolyIsland =({isRotating,setIsRotating,setCurrentStage,...props})=> {
             rotationSpeed.current = 0;
           }
     
-          islandRef.current.rotation.y += rotationSpeed.current;
+          const isMobile = window.innerWidth < 768;
+          islandRef.current.rotation.y += rotationSpeed.current * (isMobile ? 1.2 : 1);
         } else {
           // When rotating, determine the current stage based on island's orientation
           const rotation = islandRef.current.rotation.y;
